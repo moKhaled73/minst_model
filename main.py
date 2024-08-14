@@ -1,5 +1,4 @@
 from fastapi import FastAPI, File, UploadFile, HTTPException
-from fastapi.middleware.cors import CORSMiddleware
 import uvicorn
 import numpy as np
 import tensorflow as tf
@@ -11,12 +10,6 @@ import io
 model = tf.keras.models.load_model('minst_model.h5')
 
 app = FastAPI()
-
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=['*'],
-    allow_methods=['*'],
-)
 
 @app.post("/predict/")
 async def predict_digit(file: UploadFile = File(...)):
